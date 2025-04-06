@@ -1,45 +1,66 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { isAuthenticated, logout } from '../services/auth';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
+import { logout, isAuthenticated } from '../services/auth';
 
 const Navbar: React.FC = () => {
+  const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
   const navigate = useNavigate();
-  const authenticated = isAuthenticated();
-
+  const isActive = isAuthenticated();
+  
+  const user = isActive ? JSON.parse(localStorage.getItem('user') || '{}') : null;
+  
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
-
+  
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div className="container">
-        <Link className="navbar-brand" to="/">Alumni Portal</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
-            {authenticated ? (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/alumni">Alumni Home</Link>
-                </li>
-                <li className="nav-item">
-                  <button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">Login</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">Register</Link>
-                </li>
-              </>
-            )}
-          </ul>
+    <nav className="navbar">
+      <div className="container navbar-container">
+        <Link to="/" className="navbar-brand">
+          <h2>Alumni Connect</h2>
+        </Link>
+        
+        <div className="navbar-links">
+          {isActive ? (
+            <>
+              <span className="navbar-greeting">
+                Hello, {user?.first_name || user?.username}
+              </span>
+              <Link 
+                to="/dashboard" 
+                className={`navbar-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
+              >
+                Dashboard
+              </Link>
+              <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
+            </>
+          ) : (
+            <>
+              <Link 
+                to="/login" 
+                className={`navbar-link ${location.pathname === '/login' ? 'active' : ''}`}
+              >
+                Login
+              </Link>
+              <Link 
+                to="/register" 
+                className={`navbar-link ${location.pathname === '/register' ? 'active' : ''}`}
+              >
+                Register
+              </Link>
+            </>
+          )}
+          
+          <button 
+            onClick={toggleTheme} 
+            className="theme-switch"
+            aria-label="Toggle theme"
+          >
+            {theme === 'light' ? '🌙' : '☀️'}
+          </button>
         </div>
       </div>
     </nav>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../services/auth';
 
 const Login: React.FC = () => {
@@ -18,7 +18,7 @@ const Login: React.FC = () => {
       const success = await login({ username, password });
       
       if (success) {
-        navigate('/alumni');
+        navigate('/dashboard');
       } else {
         setError('Login failed. Please check your credentials.');
       }
@@ -31,50 +31,54 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-header bg-primary text-white">
-              <h3 className="mb-0">Login</h3>
+    <div className="container">
+      <div className="card" style={{ maxWidth: '500px', margin: '40px auto' }}>
+        <div className="card-header">
+          <h2>Login</h2>
+        </div>
+        <div className="card-body">
+          {error && <div className="alert alert-error">{error}</div>}
+          
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="username" className="form-label">Username</label>
+              <input
+                type="text"
+                id="username"
+                className="form-input"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
             </div>
-            <div className="card-body">
-              {error && <div className="alert alert-danger">{error}</div>}
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="username" className="form-label">Username</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="btn btn-primary w-100"
-                  disabled={loading}
-                >
-                  {loading ? 'Logging in...' : 'Login'}
-                </button>
-              </form>
-              <div className="mt-3 text-center">
-                <p>Don't have an account? <a href="/register">Register here</a></p>
-              </div>
+            
+            <div className="form-group">
+              <label htmlFor="password" className="form-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                className="form-input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </div>
+            
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={loading}
+              style={{ width: '100%' }}
+            >
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
+          </form>
+          
+          <div className="mt-3" style={{ textAlign: 'center' }}>
+            <p>Don't have an account? <Link to="/register">Register here</Link></p>
+            <p className="mt-3">
+              <Link to="/admin-register">Register as College Administrator</Link>
+            </p>
           </div>
         </div>
       </div>
