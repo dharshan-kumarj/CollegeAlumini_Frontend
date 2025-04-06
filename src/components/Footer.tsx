@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="row">
           <div className="col-md-4 mb-4 mb-md-0">
             <h5>College Alumni System</h5>
-            <p className="text-muted">
+            <p className="text-white">
               Connect with former classmates, find mentorship opportunities, and stay updated with your alma mater.
             </p>
           </div>
@@ -19,20 +19,20 @@ const Footer: React.FC = () => {
             <h5>Quick Links</h5>
             <ul className="list-unstyled">
               <li className="mb-2">
-                <Link to="/" className="text-decoration-none text-muted">Home</Link>
+                <Link to="/" className="text-decoration-none text-white">Home</Link>
               </li>
               <li className="mb-2">
-                <Link to="/login" className="text-decoration-none text-muted">Login</Link>
+                <Link to="/login" className="text-decoration-none text-white">Login</Link>
               </li>
               <li className="mb-2">
-                <Link to="/register" className="text-decoration-none text-muted">Register</Link>
+                <Link to="/register" className="text-decoration-none text-white">Register</Link>
               </li>
             </ul>
           </div>
           
           <div className="col-md-4">
             <h5>Contact</h5>
-            <address className="text-muted">
+            <address className="text-white">
               <p>University Campus</p>
               <p>123 Education Street</p>
               <p>Email: alumni@university.edu</p>
@@ -44,20 +44,20 @@ const Footer: React.FC = () => {
         <hr className="my-4 bg-secondary" />
         
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
-          <p className="mb-3 mb-md-0 text-muted">
+          <p className="mb-3 mb-md-0 text-white">
             © {currentYear} College Alumni System. All rights reserved.
           </p>
           <div className="d-flex">
-            <a href="#" className="text-muted me-3">
+            <a href="#" className="text-white me-3">
               <i className="bi bi-facebook"></i>
             </a>
-            <a href="#" className="text-muted me-3">
+            <a href="#" className="text-white me-3">
               <i className="bi bi-twitter"></i>
             </a>
-            <a href="#" className="text-muted me-3">
+            <a href="#" className="text-white me-3">
               <i className="bi bi-linkedin"></i>
             </a>
-            <a href="#" className="text-muted">
+            <a href="#" className="text-white">
               <i className="bi bi-instagram"></i>
             </a>
           </div>

@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
               )}
               
               {isAuthenticated && !user?.is_alumni && (
-                <Link to="/admin/dashboard" className="btn btn-light btn-lg px-4">
+                <Link to="/admin/alumni" className="btn btn-light btn-lg px-4">
                   Go to Dashboard
                 </Link>
               )}
