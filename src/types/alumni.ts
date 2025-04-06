@@ -24,6 +24,10 @@ export interface AlumniData {
   updated_at: string;
   email: string;
   username: string;
+  department?: string;
+  current_company?: string; 
+  current_position?: string;
+  verification_status?: string;
 }
 
 export interface AlumniResponse {
@@ -31,4 +35,11 @@ export interface AlumniResponse {
   page: number;
   per_page: number;
   data: AlumniData[];
+}
+
+// Add a new interface for filter categories
+export interface FilterCategories {
+  departments: string[];
+  companies: string[];
+  positions: string[];
 }

@@ -12,17 +12,62 @@ const AlumniList: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  
+  // Updated filters based on the backend API endpoints
   const [filters, setFilters] = useState<Record<string, string>>({
     department: '',
-    graduation_year: '',
-    location: '',
-    available_for_mentorship: ''
+    end_year: '',
+    cgpa: '',
+    company_name: '',
+    position: '',
+    full_name: ''
   });
+
+  // Fetch category data for filter dropdowns
+  const [filterCategories, setFilterCategories] = useState({
+    departments: [],
+    companies: [],
+    positions: []
+  });
+
+  const fetchFilterCategories = async () => {
+    try {
+      const response = await admin.getFilterCategories();
+      setFilterCategories(response.data);
+    } catch (err) {
+      console.error('Failed to load filter categories:', err);
+    }
+  };
 
   const fetchAlumni = async (page: number) => {
     try {
       setIsLoading(true);
-      const response = await admin.getAllAlumni(page);
+      
+      // Create a filter object with only non-empty values
+      const activeFilters: Record<string, string> = {};
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) activeFilters[key] = value;
+      });
+      
+      // Add search term as full_name filter if not empty
+      if (searchTerm) {
+        activeFilters.full_name = searchTerm;
+      }
+      
+      // Check if we have any active filters
+      let response;
+      if (Object.keys(activeFilters).length > 0) {
+        // Use the filter endpoint with query parameters
+        response = await admin.filterAlumni({
+          ...activeFilters,
+          page: page.toString(),
+          per_page: '10'
+        });
+      } else {
+        // Use the regular get all alumni endpoint
+        response = await admin.getAllAlumni(page);
+      }
+      
       const { data, total, page: currentPage, per_page, total_pages } = response.data;
 
       setAlumni({
@@ -42,15 +87,16 @@ const AlumniList: React.FC = () => {
   };
 
   useEffect(() => {
+    fetchFilterCategories();
     fetchAlumni(currentPage);
-  }, [currentPage, filters]);
-
+  }, [currentPage]);
+  
+  // Don't automatically trigger fetch when filters change - wait for user to submit
+  
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     // Reset to first page when searching
     setCurrentPage(1);
-    
-    // Search is implemented as a filter on department, name or company
     fetchAlumni(1);
   };
 
@@ -59,7 +105,26 @@ const AlumniList: React.FC = () => {
       ...prev,
       [field]: value
     }));
+  };
+  
+  const handleFilterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     setCurrentPage(1);
+    fetchAlumni(1);
+  };
+  
+  const clearFilters = () => {
+    setSearchTerm('');
+    setFilters({
+      department: '',
+      end_year: '',
+      cgpa: '',
+      company_name: '',
+      position: '',
+      full_name: ''
+    });
+    setCurrentPage(1);
+    fetchAlumni(1);
   };
 
   const handleDeleteAlumni = async (id: string) => {
@@ -90,6 +155,12 @@ const AlumniList: React.FC = () => {
   const totalAlumni = alumni?.items?.length || 0;
   const hasAlumni = totalAlumni > 0;
 
+  // Generate graduation year options
+  const graduationYears = Array.from(
+    { length: 10 }, 
+    (_, i) => new Date().getFullYear() - i
+  );
+
   return (
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -104,7 +175,7 @@ const AlumniList: React.FC = () => {
               <input
                 type="text"
                 className="form-control"
-                placeholder="Search by name, company, or department..."
+                placeholder="Search by name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -112,79 +183,104 @@ const AlumniList: React.FC = () => {
                 Search
               </button>
               <button 
+                type="button"
                 className="btn btn-outline-secondary"
-                onClick={() => {
-                  setSearchTerm('');
-                  setFilters({
-                    department: '',
-                    graduation_year: '',
-                    location: '',
-                    available_for_mentorship: ''
-                  });
-                  setCurrentPage(1);
-                }}
+                onClick={clearFilters}
               >
                 Clear
               </button>
             </div>
           </form>
 
-          <div className="row g-2">
-            <div className="col-md-3">
-              <select
-                className="form-select"
-                value={filters.department}
-                onChange={(e) => handleFilterChange('department', e.target.value)}
-              >
-                <option value="">All Departments</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Electrical Engineering">Electrical Engineering</option>
-                <option value="Mechanical Engineering">Mechanical Engineering</option>
-                <option value="Civil Engineering">Civil Engineering</option>
-                <option value="Business Administration">Business Administration</option>
-              </select>
+          <form onSubmit={handleFilterSubmit}>
+            <div className="row g-2 mb-3">
+              <div className="col-md-4">
+                <label className="form-label">Department</label>
+                <select
+                  className="form-select"
+                  value={filters.department}
+                  onChange={(e) => handleFilterChange('department', e.target.value)}
+                >
+                  <option value="">All Departments</option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Electrical Engineering">Electrical Engineering</option>
+                  <option value="Mechanical Engineering">Mechanical Engineering</option>
+                  <option value="Civil Engineering">Civil Engineering</option>
+                  <option value="Business Administration">Business Administration</option>
+                  {filterCategories.departments?.map(dept => (
+                    <option key={dept} value={dept}>{dept}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="col-md-4">
+                <label className="form-label">Graduation Year</label>
+                <select
+                  className="form-select"
+                  value={filters.end_year}
+                  onChange={(e) => handleFilterChange('end_year', e.target.value)}
+                >
+                  <option value="">All Years</option>
+                  {graduationYears.map(year => (
+                    <option key={year} value={year.toString()}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="col-md-4">
+                <label className="form-label">Min CGPA</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Minimum CGPA (e.g. 3.5)"
+                  min="0"
+                  max="4"
+                  step="0.1"
+                  value={filters.cgpa}
+                  onChange={(e) => handleFilterChange('cgpa', e.target.value)}
+                />
+              </div>
             </div>
 
-            <div className="col-md-3">
-              <select
-                className="form-select"
-                value={filters.graduation_year}
-                onChange={(e) => handleFilterChange('graduation_year', e.target.value)}
-              >
-                <option value="">All Graduation Years</option>
-                {Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map(year => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
-              </select>
+            <div className="row g-2 mb-3">
+              <div className="col-md-6">
+                <label className="form-label">Company</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Filter by company name"
+                  value={filters.company_name}
+                  onChange={(e) => handleFilterChange('company_name', e.target.value)}
+                />
+              </div>
+
+              <div className="col-md-6">
+                <label className="form-label">Position</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Filter by job position"
+                  value={filters.position}
+                  onChange={(e) => handleFilterChange('position', e.target.value)}
+                />
+              </div>
             </div>
 
-            <div className="col-md-3">
-              <select
-                className="form-select"
-                value={filters.location}
-                onChange={(e) => handleFilterChange('location', e.target.value)}
+            <div className="d-flex justify-content-end">
+              <button type="submit" className="btn btn-primary">
+                Apply Filters
+              </button>
+              <button 
+                type="button"
+                className="btn btn-outline-secondary ms-2"
+                onClick={clearFilters}
               >
-                <option value="">All Locations</option>
-                <option value="Chennai">Chennai</option>
-                <option value="Bangalore">Bangalore</option>
-                <option value="Mumbai">Mumbai</option>
-                <option value="Hyderabad">Hyderabad</option>
-                <option value="Delhi">Delhi</option>
-              </select>
+                Clear All
+              </button>
             </div>
-
-            <div className="col-md-3">
-              <select
-                className="form-select"
-                value={filters.available_for_mentorship}
-                onChange={(e) => handleFilterChange('available_for_mentorship', e.target.value)}
-              >
-                <option value="">Mentorship Availability</option>
-                <option value="true">Available for Mentorship</option>
-                <option value="false">Not Available</option>
-              </select>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
 
@@ -197,7 +293,7 @@ const AlumniList: React.FC = () => {
             </div>
             <div className="col-auto">
               <span className="badge bg-primary rounded-pill">
-                {isLoading ? '...' : `${totalAlumni} Alumni`}
+                {isLoading ? '...' : `${alumni?.total || 0} Alumni`}
               </span>
             </div>
           </div>
@@ -223,7 +319,10 @@ const AlumniList: React.FC = () => {
                     <th>Name</th>
                     <th>Email</th>
                     <th>Graduation Year</th>
-                    <th>Status</th>
+                    {/* <th>Department</th>
+                    <th>Current Company</th>
+                    <th>Position</th>
+                    <th>Status</th> */}
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -237,6 +336,9 @@ const AlumniList: React.FC = () => {
                       </td>
                       <td>{alumnus.email}</td>
                       <td>{alumnus.graduation_year || 'N/A'}</td>
+                      {/* <td>{alumnus.department || 'N/A'}</td>
+                      <td>{alumnus.current_company || 'N/A'}</td>
+                      <td>{alumnus.current_position || 'N/A'}</td> */}
                       <td>
                         <span className={`badge bg-${getVerificationBadgeColor(
                           alumnus.verification_status || 'pending'
@@ -275,6 +377,7 @@ const AlumniList: React.FC = () => {
                       className="page-link"
                       onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                       disabled={currentPage === 1}
+                      type="button"
                     >
                       Previous
                     </button>
@@ -302,8 +405,9 @@ const AlumniList: React.FC = () => {
                           className={`page-item ${currentPage === page ? 'active' : ''}`}
                         >
                           <button 
-                            className="page-link" 
+                            className="page-link"
                             onClick={() => setCurrentPage(page)}
+                            type="button"
                           >
                             {page}
                           </button>
@@ -316,6 +420,7 @@ const AlumniList: React.FC = () => {
                       className="page-link"
                       onClick={() => setCurrentPage(prev => Math.min(prev + 1, alumni.total_pages))}
                       disabled={currentPage === alumni.total_pages}
+                      type="button"
                     >
                       Next
                     </button>

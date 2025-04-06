@@ -86,8 +86,16 @@ export const admin = {
   
   deleteAlumni: (id: string) => api.delete(`/admin/alumni/${id}`),
   
+  getFilterCategories: () => api.get('/admin/filter-categories'),
+  
   filterAlumni: (params: Record<string, string>) => {
-    const queryParams = new URLSearchParams(params);
+    const queryParams = new URLSearchParams();
+    
+    // Add all parameters to the query
+    Object.entries(params).forEach(([key, value]) => {
+      if (value) queryParams.append(key, value);
+    });
+    
     return api.get<PaginatedResponse<AlumniProfile>>(`/admin/alumni/filter?${queryParams}`);
   },
   
