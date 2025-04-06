@@ -215,7 +215,7 @@ const AdminAlumniDetail: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-3">
+            {/* <div className="col-md-3">
               <div className="card h-100">
                 <div className="card-body">
                   <h5 className="card-title">Verification Status</h5>
@@ -238,7 +238,7 @@ const AdminAlumniDetail: React.FC = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

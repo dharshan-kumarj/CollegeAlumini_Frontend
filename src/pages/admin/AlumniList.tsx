@@ -339,13 +339,13 @@ const AlumniList: React.FC = () => {
                       {/* <td>{alumnus.department || 'N/A'}</td>
                       <td>{alumnus.current_company || 'N/A'}</td>
                       <td>{alumnus.current_position || 'N/A'}</td> */}
-                      <td>
+                      {/* <td>
                         <span className={`badge bg-${getVerificationBadgeColor(
                           alumnus.verification_status || 'pending'
                         )}`}>
                           {alumnus.verification_status || 'Pending'}
                         </span>
-                      </td>
+                      </td> */}
                       <td>
                         <button
                           className="btn btn-sm btn-outline-primary me-2"
