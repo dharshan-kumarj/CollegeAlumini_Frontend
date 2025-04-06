@@ -50,11 +50,23 @@ export interface AlumniBasicInfo {
 }
 
 export interface AlumniProfile {
-  id: string;
-  basic: AlumniBasicInfo;
-  education: Education[];
-  jobs: Job[];
-  verification_status?: string;
+  alumni_id: number;
+  user_id: number;
+  full_name: string; // Added full_name property
+  date_of_birth?: string | null;
+  gender?: string | null;
+  bio?: string | null;
+  contact_number?: string | null;
+  address?: string | null;
+  graduation_year?: number | null;
+  current_location?: string | null;
+  profile_image?: string | null;
+  social_media_links?: Record<string, string> | null;
+  availability_for_mentorship: boolean;
+  created_at: string;
+  updated_at: string;
+  email: string;
+  username: string;
 }
 
 // Admin types

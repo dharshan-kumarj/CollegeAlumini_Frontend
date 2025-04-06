@@ -9,6 +9,7 @@ import {
   Menu as MenuIcon
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { Theme } from '@mui/material/styles';
 
 const drawerWidth = 240;
 
@@ -47,15 +48,15 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = "Admin Dash
       <AppBar 
         position="fixed" 
         sx={{ 
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-          transition: (theme) => theme.transitions.create(['width', 'margin'], {
+          zIndex: (theme: Theme) => theme.zIndex.drawer + 1,
+          transition: (theme: Theme) => theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
           }),
           ...(open && {
             marginLeft: drawerWidth,
             width: `calc(100% - ${drawerWidth}px)`,
-            transition: (theme) => theme.transitions.create(['width', 'margin'], {
+            transition: (theme: Theme) => theme.transitions.create(['width', 'margin'], {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.enteringScreen,
             }),
@@ -89,7 +90,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = "Admin Dash
             width: drawerWidth,
             boxSizing: 'border-box',
             whiteSpace: 'nowrap',
-            transition: (theme) => theme.transitions.create('width', {
+            transition: (theme: Theme) => theme.transitions.create('width', {
               easing: theme.transitions.easing.sharp,
               duration: theme.transitions.duration.enteringScreen,
             }),
@@ -97,11 +98,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = "Admin Dash
               overflowX: 'hidden',
             } : {
               overflowX: 'hidden',
-              width: (theme) => theme.spacing(7),
+              width: (theme: Theme) => theme.spacing(7),
               [theme.breakpoints.up('sm')]: {
-                width: theme.spacing(9),
+                width: (theme: Theme) => theme.spacing(9),
               },
-              transition: (theme) => theme.transitions.create('width', {
+              transition: (theme: Theme) => theme.transitions.create('width', {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.leavingScreen,
               }),

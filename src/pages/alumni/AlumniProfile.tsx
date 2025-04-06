@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { alumni } from '../../services/api';
-import { AlumniProfile as ProfileType, Education, Job } from '../../types';
+import { Education, Job } from '../../types';
+
+// Ensure the `ProfileType` includes `full_name` and other required properties
+interface ExtendedProfileType {
+  full_name: string;
+  education: Education[];
+  jobs: Job[];
+  bio?: string;
+  contact_number?: string;
+  current_location?: string;
+  availability_for_mentorship: boolean;
+  profile_image?: string;
+}
+
 import EducationForm from '../../components/alumni/EducationForm';
 import JobForm from '../../components/alumni/JobForm';
 import ProfileInfoForm from '../../components/alumni/ProfileInfoForm';
@@ -8,7 +21,7 @@ import LoadingSpinner from '../../components/LoadingSpinner';
 import AlertMessage from '../../components/AlertMessage';
 
 const AlumniProfile: React.FC = () => {
-  const [profile, setProfile] = useState<ProfileType | null>(null);
+  const [profile, setProfile] = useState<ExtendedProfileType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [showEducationForm, setShowEducationForm] = useState<boolean>(false);
@@ -36,7 +49,7 @@ const AlumniProfile: React.FC = () => {
     fetchProfile();
   }, []);
 
-  const handleProfileUpdate = async (data: Partial<ProfileType>) => {
+  const handleProfileUpdate = async (data: Partial<ExtendedProfileType>) => {
     try {
       await alumni.updateProfile(data);
       await fetchProfile();
