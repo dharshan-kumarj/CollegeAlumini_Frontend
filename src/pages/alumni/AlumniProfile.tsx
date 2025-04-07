@@ -161,7 +161,7 @@ const AlumniProfile: React.FC = () => {
             >
               Edit Profile
             </button>
-            <label className="btn btn-outline-secondary">
+            {/* <label className="btn btn-outline-secondary">
               Upload Photo
               <input 
                 type="file" 
@@ -169,9 +169,9 @@ const AlumniProfile: React.FC = () => {
                 accept="image/*" 
                 onChange={handleProfileImageUpload} 
               />
-            </label>
+            </label> */}
           </div>
-          <div>
+          {/* <div>
             {profile.profile_image && (
               <img 
                 src={profile.profile_image} 
@@ -180,7 +180,7 @@ const AlumniProfile: React.FC = () => {
                 style={{ width: '100px', height: '100px', objectFit: 'cover' }} 
               />
             )}
-          </div>
+          </div> */}
         </div>
       </div>
 
