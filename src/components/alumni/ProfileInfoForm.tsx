@@ -4,7 +4,7 @@ import { AlumniProfile } from '../../types';
 interface ProfileInfoFormProps {
   profile: AlumniProfile;
   onClose: () => void;
-  onSubmit: (data: Partial<AlumniProfile>) => Promise<void>;
+  onSubmit: (data: any) => Promise<void>; // Changed type to accommodate the "basic" wrapper
 }
 
 const ProfileInfoForm: React.FC<ProfileInfoFormProps> = ({ profile, onClose, onSubmit }) => {
@@ -32,12 +32,15 @@ const ProfileInfoForm: React.FC<ProfileInfoFormProps> = ({ profile, onClose, onS
     setIsSubmitting(true);
     
     try {
+      // Format data to match the backend expectation with "basic" wrapper
       await onSubmit({
-        full_name: fullName,
-        bio: bio || undefined,
-        contact_number: contactNumber || undefined,
-        current_location: currentLocation || undefined,
-        availability_for_mentorship: availabilityForMentorship
+        basic: {
+          full_name: fullName,
+          bio: bio || null,
+          contact_number: contactNumber || null,
+          current_location: currentLocation || null,
+          availability_for_mentorship: availabilityForMentorship
+        }
       });
       onClose();
     } catch (err) {
