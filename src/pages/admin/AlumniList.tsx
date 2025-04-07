@@ -179,7 +179,7 @@ const AlumniList: React.FC = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <button className="btn btn-primary" type="submit">
+              <button className="btn btn-black text-white " type="submit">
                 Search
               </button>
               <button 
@@ -269,7 +269,7 @@ const AlumniList: React.FC = () => {
             </div>
 
             <div className="d-flex justify-content-end">
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-black text-white ">
                 Apply Filters
               </button>
               <button 
@@ -292,7 +292,7 @@ const AlumniList: React.FC = () => {
               <h4 className="mb-0">Alumni</h4>
             </div>
             <div className="col-auto">
-              <span className="badge bg-primary rounded-pill">
+              <span className="badge bg-black rounded-pill">
                 {isLoading ? '...' : `${alumni?.total || 0} Alumni`}
               </span>
             </div>
@@ -348,7 +348,7 @@ const AlumniList: React.FC = () => {
                       </td> */}
                       <td>
                         <button
-                          className="btn btn-sm btn-outline-primary me-2"
+                          className="btn btn-sm btn-outline-black me-2"
                           onClick={() => navigate(`/admin/alumni/${alumnus.alumni_id}`)}
                         >
                           View

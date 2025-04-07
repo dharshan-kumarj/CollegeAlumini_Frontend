@@ -88,14 +88,14 @@ const Register: React.FC = () => {
                 <div className="btn-group" role="group">
                   <button
                     type="button"
-                    className={`btn ${isAlumni ? 'btn-primary' : 'btn-outline-primary'}`}
+                    className={`btn ${isAlumni ? 'btn-black  text-white' : 'btn-outline-black'}`}
                     onClick={() => setIsAlumni(true)}
                   >
                     Register as Alumni
                   </button>
                   <button
                     type="button"
-                    className={`btn ${!isAlumni ? 'btn-primary' : 'btn-outline-primary'}`}
+                    className={`btn ${!isAlumni ? 'btn-black  text-white' : 'btn-outline-black'}`}
                     onClick={() => setIsAlumni(false)}
                   >
                     Register as Admin
@@ -254,7 +254,7 @@ const Register: React.FC = () => {
                 <div className="d-grid gap-2 mt-4">
                   <button 
                     type="submit" 
-                    className="btn btn-primary" 
+                    className="btn btn-black text-white" 
                     disabled={isLoading}
                   >
                     {isLoading ? 'Registering...' : 'Register'}

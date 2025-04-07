@@ -12,7 +12,7 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-black">
       <div className="container">
         <Link className="navbar-brand" to="/">College Alumni System</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

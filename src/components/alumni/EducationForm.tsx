@@ -166,7 +166,7 @@ const EducationForm: React.FC<EducationFormProps> = ({ education, onClose, onSub
                 <button type="button" className="btn btn-secondary" onClick={onClose}>
                   Cancel
                 </button>
-                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                <button type="submit" className="btn btn-black text-white " disabled={isSubmitting}>
                   {isSubmitting ? 'Saving...' : 'Save'}
                 </button>
               </div>

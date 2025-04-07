@@ -171,7 +171,7 @@ const JobForm: React.FC<JobFormProps> = ({ job, onClose, onSubmit }) => {
                 <button type="button" className="btn btn-secondary" onClick={onClose}>
                   Cancel
                 </button>
-                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                <button type="submit" className="btn btn-black text-white " disabled={isSubmitting}>
                   {isSubmitting ? 'Saving...' : 'Save'}
                 </button>
               </div>

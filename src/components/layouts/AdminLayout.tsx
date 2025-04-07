@@ -123,7 +123,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = "Admin Dash
                 <ListItemIcon>
                   {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={item.text} />
+                <ListItemText black={item.text} />
               </ListItem>
             ))}
           </List>
@@ -133,7 +133,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = "Admin Dash
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
-              <ListItemText primary="Logout" />
+              <ListItemText black="Logout" />
             </ListItem>
           </List>
         </Box>

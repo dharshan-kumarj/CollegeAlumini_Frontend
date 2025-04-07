@@ -122,7 +122,7 @@ const AlumniProfile: React.FC = () => {
           type="danger" 
           message={error}
         />
-        <button className="btn btn-primary mt-3" onClick={fetchProfile}>
+        <button className="btn btn-black mt-3" onClick={fetchProfile}>
           Try Again
         </button>
       </div>
@@ -156,7 +156,7 @@ const AlumniProfile: React.FC = () => {
         <div className="col-md-4 text-md-end">
           <div className="mb-3">
             <button 
-              className="btn btn-primary me-2" 
+              className="btn btn-black text-white me-2" 
               onClick={() => setShowProfileForm(true)}
             >
               Edit Profile
@@ -189,7 +189,7 @@ const AlumniProfile: React.FC = () => {
         <div className="card-header d-flex justify-content-between align-items-center bg-light">
           <h4 className="mb-0">Education</h4>
           <button 
-            className="btn btn-sm btn-primary" 
+            className="btn btn-sm text-white  btn-black" 
             onClick={() => {
               setSelectedEducation(null);
               setShowEducationForm(true);
@@ -232,7 +232,7 @@ const AlumniProfile: React.FC = () => {
         <div className="card-header d-flex justify-content-between align-items-center bg-light">
           <h4 className="mb-0">Work Experience</h4>
           <button 
-            className="btn btn-sm btn-primary" 
+            className="btn btn-sm text-white  btn-black" 
             onClick={() => {
               setSelectedJob(null);
               setShowJobForm(true);

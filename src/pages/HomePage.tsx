@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-primary text-white py-5">
+      <div className="bg-black text-white py-5">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
@@ -59,7 +59,7 @@ const HomePage: React.FC = () => {
             <div className="col-md-4">
               <div className="card h-100 border-0 shadow-sm">
                 <div className="card-body text-center p-4">
-                  <div className="feature-icon bg-primary bg-gradient text-white mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center" 
+                  <div className="feature-icon bg-black bg-gradient text-white mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center" 
                     style={{ width: '70px', height: '70px' }}>
                     <i className="bi bi-people-fill fs-2"></i>
                   </div>
@@ -74,7 +74,7 @@ const HomePage: React.FC = () => {
             <div className="col-md-4">
               <div className="card h-100 border-0 shadow-sm">
                 <div className="card-body text-center p-4">
-                  <div className="feature-icon bg-primary bg-gradient text-white mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center" 
+                  <div className="feature-icon bg-black bg-gradient text-white mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center" 
                     style={{ width: '70px', height: '70px' }}>
                     <i className="bi bi-briefcase-fill fs-2"></i>
                   </div>
@@ -89,7 +89,7 @@ const HomePage: React.FC = () => {
             <div className="col-md-4">
               <div className="card h-100 border-0 shadow-sm">
                 <div className="card-body text-center p-4">
-                  <div className="feature-icon bg-primary bg-gradient text-white mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center" 
+                  <div className="feature-icon bg-black bg-gradient text-white mb-3 mx-auto rounded-circle d-flex align-items-center justify-content-center" 
                     style={{ width: '70px', height: '70px' }}>
                     <i className="bi bi-calendar-event fs-2"></i>
                   </div>
@@ -118,17 +118,17 @@ const HomePage: React.FC = () => {
           
           <div className="row g-4 text-center">
             <div className="col-md-4">
-              <h2 className="display-4 fw-bold text-primary">5000+</h2>
+              <h2 className="display-4 fw-bold text-black">5000+</h2>
               <p className="text-muted">Registered Alumni</p>
             </div>
             
             <div className="col-md-4">
-              <h2 className="display-4 fw-bold text-primary">120+</h2>
+              <h2 className="display-4 fw-bold text-black">120+</h2>
               <p className="text-muted">Countries Represented</p>
             </div>
             
             <div className="col-md-4">
-              <h2 className="display-4 fw-bold text-primary">250+</h2>
+              <h2 className="display-4 fw-bold text-black">250+</h2>
               <p className="text-muted">Companies Connected</p>
             </div>
           </div>
@@ -136,7 +136,7 @@ const HomePage: React.FC = () => {
       </div>
       
       {/* CTA Section */}
-      <div className="bg-primary text-white py-5">
+      <div className="bg-black text-white py-5">
         <div className="container">
           <div className="row justify-content-center text-center">
             <div className="col-lg-8">

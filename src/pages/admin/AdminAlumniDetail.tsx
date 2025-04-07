@@ -112,7 +112,7 @@ const AdminAlumniDetail: React.FC = () => {
   if (isLoading) {
     return (
       <div className="container py-5 text-center">
-        <div className="spinner-border text-primary" role="status">
+        <div className="spinner-border text-black" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
         <p className="mt-2">Loading alumni profile...</p>
@@ -139,7 +139,7 @@ const AdminAlumniDetail: React.FC = () => {
         <div className="alert alert-warning">
           Alumni profile not found.
         </div>
-        <button className="btn btn-primary" onClick={() => navigate('/admin/alumni')}>
+        <button className="btn btn-black" onClick={() => navigate('/admin/alumni')}>
           Back to Alumni List
         </button>
       </div>
@@ -231,7 +231,7 @@ const AdminAlumniDetail: React.FC = () => {
                     </select>
                   </div>
                   <button
-                    className="btn btn-primary w-100"
+                    className="btn btn-black w-100"
                     onClick={handleUpdateVerificationStatus}
                   >
                     Update Status
@@ -248,7 +248,7 @@ const AdminAlumniDetail: React.FC = () => {
         <div className="card-header d-flex justify-content-between align-items-center bg-light">
           <h4 className="mb-0">Education</h4>
           <button 
-            className="btn btn-sm btn-primary" 
+            className="btn btn-sm btn-black text-white " 
             onClick={() => {
               setSelectedEducation(null);
               setShowEducationForm(true);
@@ -291,7 +291,7 @@ const AdminAlumniDetail: React.FC = () => {
         <div className="card-header d-flex justify-content-between align-items-center bg-light">
           <h4 className="mb-0">Work Experience</h4>
           <button 
-            className="btn btn-sm btn-primary" 
+            className="btn btn-sm btn-black text-white " 
             onClick={() => {
               setSelectedJob(null);
               setShowJobForm(true);

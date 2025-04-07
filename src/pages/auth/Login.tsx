@@ -74,14 +74,14 @@ const Login: React.FC = () => {
                 
                 <button 
                   type="submit" 
-                  className="btn btn-primary w-100"
+                  className="btn btn-black text-white w-100"
                 >
                   Login
                 </button>
               </form>
               
               <div className="mt-3 text-center">
-                <p>Don't have an account? <Link to="/register">Register</Link></p>
+                <p>Don't have an account? <a href="/Register">Register</a></p>
               </div>
             </div>
           </div>

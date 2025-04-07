@@ -12,10 +12,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #000000);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #000000);
 }
 
 @keyframes logo-spin {
@@ -68,14 +68,14 @@ html {
   padding: 0.5rem 1rem;
 }
 
-.btn-primary {
-  background-color: #0d6efd;
-  border-color: #0d6efd;
+.btn-black {
+  background-color: #000000;
+  border-color: #000000;
 }
 
-.btn-primary:hover {
-  background-color: #0b5ed7;
-  border-color: #0a58ca;
+.btn-black:hover {
+  background-color: #000000;
+  border-color: #000000;
 }
 
 /* Custom badge styles */
