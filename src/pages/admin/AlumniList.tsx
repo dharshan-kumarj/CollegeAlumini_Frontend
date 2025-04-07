@@ -164,201 +164,279 @@ const AlumniList: React.FC = () => {
   return (
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>Alumni List</h2>
+        <h2 className="text-white">Alumni Directory</h2>
+        <span className="badge bg-primary fs-6 py-2 px-3">
+          {isLoading ? 'Loading...' : `${alumni?.total || 0} Alumni`}
+        </span>
       </div>
 
       {/* Search and Filter Controls */}
-      <div className="card mb-4">
-        <div className="card-body">
-          <form onSubmit={handleSearch} className="mb-3">
-            <div className="input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search by name..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              <button className="btn btn-primary" type="submit">
-                Search
-              </button>
-              <button 
-                type="button"
-                className="btn btn-outline-secondary"
-                onClick={clearFilters}
-              >
-                Clear
-              </button>
-            </div>
-          </form>
-
-          <form onSubmit={handleFilterSubmit}>
-            <div className="row g-2 mb-3">
-              <div className="col-md-4">
-                <label className="form-label">Department</label>
-                <select
-                  className="form-select"
-                  value={filters.department}
-                  onChange={(e) => handleFilterChange('department', e.target.value)}
-                >
-                  <option value="">All Departments</option>
-                  <option value="Computer Science">Computer Science</option>
-                  <option value="Electrical Engineering">Electrical Engineering</option>
-                  <option value="Mechanical Engineering">Mechanical Engineering</option>
-                  <option value="Civil Engineering">Civil Engineering</option>
-                  <option value="Business Administration">Business Administration</option>
-                  {filterCategories.departments?.map(dept => (
-                    <option key={dept} value={dept}>{dept}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="col-md-4">
-                <label className="form-label">Graduation Year</label>
-                <select
-                  className="form-select"
-                  value={filters.end_year}
-                  onChange={(e) => handleFilterChange('end_year', e.target.value)}
-                >
-                  <option value="">All Years</option>
-                  {graduationYears.map(year => (
-                    <option key={year} value={year.toString()}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="col-md-4">
-                <label className="form-label">Min CGPA</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="Minimum CGPA (e.g. 3.5)"
-                  min="0"
-                  max="4"
-                  step="0.1"
-                  value={filters.cgpa}
-                  onChange={(e) => handleFilterChange('cgpa', e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="row g-2 mb-3">
-              <div className="col-md-6">
-                <label className="form-label">Company</label>
+      <div className="card bg-dark border-0 shadow-sm mb-4">
+        <div className="card-header bg-dark border-bottom border-secondary">
+          <div className="d-flex justify-content-between align-items-center">
+            <h5 className="text-white mb-0">
+              <i className="bi bi-funnel-fill me-2 text-primary"></i>
+              Search & Filters
+            </h5>
+            <button 
+              type="button"
+              className="btn btn-sm btn-outline-secondary"
+              data-bs-toggle="collapse" 
+              data-bs-target="#filterCollapse"
+              aria-expanded="true" 
+              aria-controls="filterCollapse"
+            >
+              <i className="bi bi-chevron-up"></i>
+            </button>
+          </div>
+        </div>
+        <div className="collapse show" id="filterCollapse">
+          <div className="card-body bg-dark">
+            <form onSubmit={handleSearch} className="mb-4">
+              <div className="input-group">
+                <span className="input-group-text bg-dark-subtle border-secondary text-light">
+                  <i className="bi bi-search"></i>
+                </span>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Filter by company name"
-                  value={filters.company_name}
-                  onChange={(e) => handleFilterChange('company_name', e.target.value)}
+                  placeholder="Search alumni by name..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  aria-label="Search alumni"
                 />
+                <button className="btn btn-primary" type="submit">
+                  Search
+                </button>
+                <button 
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  onClick={clearFilters}
+                >
+                  Clear
+                </button>
+              </div>
+            </form>
+
+            <form onSubmit={handleFilterSubmit}>
+              <div className="row g-3 mb-4">
+                <div className="col-md-4">
+                  <label className="form-label text-light">Department</label>
+                  <div className="input-group">
+                    <span className="input-group-text bg-dark-subtle border-secondary text-light">
+                      <i className="bi bi-building"></i>
+                    </span>
+                    <select
+                      className="form-select bg-dark text-light border-secondary"
+                      value={filters.department}
+                      onChange={(e) => handleFilterChange('department', e.target.value)}
+                    >
+                      <option value="">All Departments</option>
+                      <option value="Computer Science">Computer Science</option>
+                      <option value="Electrical Engineering">Electrical Engineering</option>
+                      <option value="Mechanical Engineering">Mechanical Engineering</option>
+                      <option value="Civil Engineering">Civil Engineering</option>
+                      <option value="Business Administration">Business Administration</option>
+                      {filterCategories.departments?.map(dept => (
+                        <option key={dept} value={dept}>{dept}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  <label className="form-label text-light">Graduation Year</label>
+                  <div className="input-group">
+                    <span className="input-group-text bg-dark-subtle border-secondary text-light">
+                      <i className="bi bi-calendar-event"></i>
+                    </span>
+                    <select
+                      className="form-select bg-dark text-light border-secondary"
+                      value={filters.end_year}
+                      onChange={(e) => handleFilterChange('end_year', e.target.value)}
+                    >
+                      <option value="">All Years</option>
+                      {graduationYears.map(year => (
+                        <option key={year} value={year.toString()}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-md-4">
+                  <label className="form-label text-light">Min CGPA</label>
+                  <div className="input-group">
+                    <span className="input-group-text bg-dark-subtle border-secondary text-light">
+                      <i className="bi bi-award"></i>
+                    </span>
+                    <input
+                      type="number"
+                      className="form-control bg-dark text-light border-secondary"
+                      placeholder="Minimum CGPA (e.g. 3.5)"
+                      min="0"
+                      max="4"
+                      step="0.1"
+                      value={filters.cgpa}
+                      onChange={(e) => handleFilterChange('cgpa', e.target.value)}
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div className="col-md-6">
-                <label className="form-label">Position</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Filter by job position"
-                  value={filters.position}
-                  onChange={(e) => handleFilterChange('position', e.target.value)}
-                />
-              </div>
-            </div>
+              <div className="row g-3 mb-4">
+                <div className="col-md-6">
+                  <label className="form-label text-light">Company</label>
+                  <div className="input-group">
+                    <span className="input-group-text bg-dark-subtle border-secondary text-light">
+                      <i className="bi bi-briefcase"></i>
+                    </span>
+                    <input
+                      type="text"
+                      className="form-control bg-dark text-light border-secondary"
+                      placeholder="Filter by company name"
+                      value={filters.company_name}
+                      onChange={(e) => handleFilterChange('company_name', e.target.value)}
+                    />
+                  </div>
+                </div>
 
-            <div className="d-flex justify-content-end">
-              <button type="submit" className="btn btn-primary">
-                Apply Filters
-              </button>
-              <button 
-                type="button"
-                className="btn btn-outline-secondary ms-2"
-                onClick={clearFilters}
-              >
-                Clear All
-              </button>
-            </div>
-          </form>
+                <div className="col-md-6">
+                  <label className="form-label text-light">Position</label>
+                  <div className="input-group">
+                    <span className="input-group-text bg-dark-subtle border-secondary text-light">
+                      <i className="bi bi-person-badge"></i>
+                    </span>
+                    <input
+                      type="text"
+                      className="form-control bg-dark text-light border-secondary"
+                      placeholder="Filter by job position"
+                      value={filters.position}
+                      onChange={(e) => handleFilterChange('position', e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="d-flex justify-content-end">
+                <button type="submit" className="btn btn-primary">
+                  <i className="bi bi-funnel me-2"></i>
+                  Apply Filters
+                </button>
+                <button 
+                  type="button"
+                  className="btn btn-outline-secondary ms-2"
+                  onClick={clearFilters}
+                >
+                  <i className="bi bi-x-circle me-2"></i>
+                  Clear All
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
       {/* Alumni Table */}
-      <div className="card">
-        <div className="card-header bg-light">
+      <div className="card bg-dark border-0 shadow">
+        <div className="card-header bg-dark border-bottom border-secondary">
           <div className="row align-items-center">
             <div className="col">
-              <h4 className="mb-0">Alumni</h4>
+              <h5 className="mb-0 text-white">
+                <i className="bi bi-people-fill me-2 text-primary"></i>
+                Alumni List
+              </h5>
             </div>
             <div className="col-auto">
-              <span className="badge bg-primary rounded-pill">
-                {isLoading ? '...' : `${alumni?.total || 0} Alumni`}
-              </span>
+              {!isLoading && hasAlumni && (
+                <span className="text-muted small">
+                  Showing {((currentPage - 1) * (alumni?.per_page || 10)) + 1} to {Math.min(currentPage * (alumni?.per_page || 10), alumni?.total || 0)} of {alumni?.total || 0}
+                </span>
+              )}
             </div>
           </div>
         </div>
-        <div className="card-body">
+        <div className="card-body bg-dark p-0">
           {isLoading ? (
-            <LoadingSpinner message="Loading alumni..." />
+            <div className="p-4 text-center">
+              <LoadingSpinner message="Loading alumni data..." />
+            </div>
           ) : error ? (
-            <AlertMessage
-              type="danger"
-              message={error}
-              onClose={() => setError(null)}
-            />
+            <div className="p-4">
+              <AlertMessage
+                type="danger"
+                message={error}
+                onClose={() => setError(null)}
+              />
+            </div>
           ) : !hasAlumni ? (
-            <div className="text-center py-4">
-              <p className="text-muted">No alumni found matching your criteria.</p>
+            <div className="text-center py-5">
+              <i className="bi bi-search text-muted display-1 mb-3"></i>
+              <h5 className="text-white">No Alumni Found</h5>
+              <p className="text-muted mb-0">No alumni records match your search criteria.</p>
+              <button className="btn btn-outline-primary mt-3" onClick={clearFilters}>
+                <i className="bi bi-arrow-counterclockwise me-2"></i>
+                Clear Filters
+              </button>
             </div>
           ) : (
             <div className="table-responsive">
-              <table className="table table-hover">
-                <thead className="table-light">
+              <table className="table table-dark table-hover border-secondary mb-0">
+                <thead className="bg-dark-subtle text-light">
                   <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Graduation Year</th>
-                    {/* <th>Department</th>
-                    <th>Current Company</th>
-                    <th>Position</th>
-                    <th>Status</th> */}
-                    <th>Actions</th>
+                    <th scope="col" className="border-secondary">Name</th>
+                    <th scope="col" className="border-secondary">Email</th>
+                    <th scope="col" className="border-secondary">Graduation</th>
+                    <th scope="col" className="border-secondary">Department</th>
+                    <th scope="col" className="border-secondary">Company</th>
+                    <th scope="col" className="border-secondary">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {alumni?.items?.map(alumnus => (
-                    <tr key={alumnus.alumni_id}>
-                      <td>
-                        <Link to={`/admin/alumni/${alumnus.alumni_id}`}>
-                          {alumnus.full_name}
-                        </Link>
+                    <tr key={alumnus.alumni_id} className="border-secondary">
+                      <td className="border-secondary">
+                        <div className="d-flex align-items-center">
+                          <div className={alumnus.profile_image ? '' : 'bg-primary bg-opacity-25 rounded-circle p-2 me-2 text-center'} style={{width: '36px', height: '36px'}}>
+                            {alumnus.profile_image ? (
+                              <img 
+                                src={alumnus.profile_image} 
+                                alt={alumnus.full_name} 
+                                className="rounded-circle"
+                                width="36"
+                                height="36"
+                              />
+                            ) : (
+                              <i className="bi bi-person-fill text-primary"></i>
+                            )}
+                          </div>
+                          <Link to={`/admin/alumni/${alumnus.alumni_id}`} className="text-decoration-none ms-2 text-white fw-medium">
+                            {alumnus.full_name}
+                          </Link>
+                        </div>
                       </td>
-                      <td>{alumnus.email}</td>
-                      <td>{alumnus.graduation_year || 'N/A'}</td>
-                      {/* <td>{alumnus.department || 'N/A'}</td>
-                      <td>{alumnus.current_company || 'N/A'}</td>
-                      <td>{alumnus.current_position || 'N/A'}</td> */}
-                      {/* <td>
-                        <span className={`badge bg-${getVerificationBadgeColor(
-                          alumnus.verification_status || 'pending'
-                        )}`}>
-                          {alumnus.verification_status || 'Pending'}
-                        </span>
-                      </td> */}
-                      <td>
-                        <button
-                          className="btn btn-sm btn-outline-primary me-2"
-                          onClick={() => navigate(`/admin/alumni/${alumnus.alumni_id}`)}
-                        >
-                          View
-                        </button>
-                        <button
-                          className="btn btn-sm btn-outline-danger"
-                          onClick={() => handleDeleteAlumni(alumnus.alumni_id.toString())}
-                        >
-                          Delete
-                        </button>
+                      <td className="text-muted border-secondary">{alumnus.email}</td>
+                      <td className="text-muted border-secondary">{alumnus.graduation_year || 'N/A'}</td>
+                      <td className="text-muted border-secondary">{alumnus.department || 'N/A'}</td>
+                      <td className="text-muted border-secondary">{alumnus.current_company || 'N/A'}</td>
+                      <td className="border-secondary">
+                        <div className="d-flex">
+                          <button
+                            className="btn btn-sm btn-outline-primary me-2"
+                            onClick={() => navigate(`/admin/alumni/${alumnus.alumni_id}`)}
+                            title="View Profile"
+                          >
+                            <i className="bi bi-eye"></i>
+                          </button>
+                          <button
+                            className="btn btn-sm btn-outline-danger"
+                            onClick={() => handleDeleteAlumni(alumnus.alumni_id.toString())}
+                            title="Delete Profile"
+                          >
+                            <i className="bi bi-trash"></i>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -369,17 +447,17 @@ const AlumniList: React.FC = () => {
 
           {/* Pagination */}
           {!isLoading && hasAlumni && alumni && alumni.total > alumni.per_page && (
-            <div className="d-flex justify-content-center mt-4">
+            <div className="bg-dark p-3 border-top border-secondary">
               <nav>
-                <ul className="pagination">
+                <ul className="pagination justify-content-center mb-0">
                   <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                     <button
-                      className="page-link"
+                      className="page-link bg-dark text-light border-secondary"
                       onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                       disabled={currentPage === 1}
                       type="button"
                     >
-                      Previous
+                      <i className="bi bi-chevron-left small"></i>
                     </button>
                   </li>
                   
@@ -394,7 +472,7 @@ const AlumniList: React.FC = () => {
                       if (index > 0 && page - array[index - 1] > 1) {
                         return (
                           <li key={`ellipsis-${page}`} className="page-item disabled">
-                            <span className="page-link">...</span>
+                            <span className="page-link bg-dark text-light border-secondary">...</span>
                           </li>
                         );
                       }
@@ -405,7 +483,7 @@ const AlumniList: React.FC = () => {
                           className={`page-item ${currentPage === page ? 'active' : ''}`}
                         >
                           <button 
-                            className="page-link"
+                            className={`page-link border-secondary ${currentPage === page ? 'bg-primary text-white' : 'bg-dark text-light'}`}
                             onClick={() => setCurrentPage(page)}
                             type="button"
                           >
@@ -417,12 +495,12 @@ const AlumniList: React.FC = () => {
                   
                   <li className={`page-item ${currentPage === alumni.total_pages ? 'disabled' : ''}`}>
                     <button
-                      className="page-link"
+                      className="page-link bg-dark text-light border-secondary"
                       onClick={() => setCurrentPage(prev => Math.min(prev + 1, alumni.total_pages))}
                       disabled={currentPage === alumni.total_pages}
                       type="button"
                     >
-                      Next
+                      <i className="bi bi-chevron-right small"></i>
                     </button>
                   </li>
                 </ul>

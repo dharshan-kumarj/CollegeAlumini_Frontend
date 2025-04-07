@@ -5,61 +5,43 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-dark text-white py-4 mt-5">
+    <footer className="bg-dark text-light py-4 mt-auto">
       <div className="container">
-        <div className="row">
-          <div className="col-md-4 mb-4 mb-md-0">
-            <h5>College Alumni System</h5>
-            <p className="text-white">
-              Connect with former classmates, find mentorship opportunities, and stay updated with your alma mater.
-            </p>
+        <div className="row align-items-center">
+          <div className="col-md-6 mb-3 mb-md-0">
+            <h5 className="text-primary mb-0 fw-bold">
+              <i className="bi bi-mortarboard-fill me-2"></i>
+              College Alumni Network
+            </h5>
           </div>
           
-          <div className="col-md-4 mb-4 mb-md-0">
-            <h5>Quick Links</h5>
-            <ul className="list-unstyled">
-              <li className="mb-2">
-                <Link to="/" className="text-decoration-none text-white">Home</Link>
-              </li>
-              <li className="mb-2">
-                <Link to="/login" className="text-decoration-none text-white">Login</Link>
-              </li>
-              <li className="mb-2">
-                <Link to="/register" className="text-decoration-none text-white">Register</Link>
-              </li>
-            </ul>
-          </div>
-          
-          <div className="col-md-4">
-            <h5>Contact</h5>
-            <address className="text-white">
-              <p>University Campus</p>
-              <p>123 Education Street</p>
-              <p>Email: alumni@university.edu</p>
-              <p>Phone: +1 234 567 8900</p>
-            </address>
+          <div className="col-md-6">
+            <div className="d-flex justify-content-md-end justify-content-center">
+              <a href="#" className="text-decoration-none me-3 social-icon">
+                <i className="bi bi-facebook text-muted fs-5"></i>
+              </a>
+              <a href="#" className="text-decoration-none me-3 social-icon">
+                <i className="bi bi-twitter text-muted fs-5"></i>
+              </a>
+              <a href="#" className="text-decoration-none me-3 social-icon">
+                <i className="bi bi-linkedin text-muted fs-5"></i>
+              </a>
+              <a href="#" className="text-decoration-none social-icon">
+                <i className="bi bi-instagram text-muted fs-5"></i>
+              </a>
+            </div>
           </div>
         </div>
         
-        <hr className="my-4 bg-secondary" />
+        <hr className="my-3 bg-secondary" />
         
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
-          <p className="mb-3 mb-md-0 text-white">
-            © {currentYear} College Alumni System. All rights reserved.
+          <p className="mb-3 mb-md-0 text-muted small">
+            © {currentYear} College Alumni Network. All rights reserved. <span className="text-primary">Developed by Dharshan Kumar</span>
           </p>
-          <div className="d-flex">
-            <a href="#" className="text-white me-3">
-              <i className="bi bi-facebook"></i>
-            </a>
-            <a href="#" className="text-white me-3">
-              <i className="bi bi-twitter"></i>
-            </a>
-            <a href="#" className="text-white me-3">
-              <i className="bi bi-linkedin"></i>
-            </a>
-            <a href="#" className="text-white">
-              <i className="bi bi-instagram"></i>
-            </a>
+          <div className="d-flex gap-3">
+            <Link to="/privacy" className="text-decoration-none text-muted small">Privacy Policy</Link>
+            <Link to="/terms" className="text-decoration-none text-muted small">Terms of Use</Link>
           </div>
         </div>
       </div>
